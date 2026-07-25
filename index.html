@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>River Cleaning Boat by HimalixLabs</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="app-container">
+
+    <!-- Top Header: River Cleaning Boat by HimalixLabs (Matching Reference Controller & Himalix Web Design UI) -->
+    <header class="top-header">
+      <div class="header-top-row">
+        <div class="pill-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          HIMALIX PLATFORM
+        </div>
+
+        <div class="hud-status-badge">
+          <span class="status-dot" id="status-indicator"></span>
+          <span id="status-text">ESP8266 AP</span>
+        </div>
+      </div>
+
+      <div class="brand-title-box">
+        <h1>River Cleaning <span>Boat</span></h1>
+        <div class="brand-sub">by HimalixLabs</div>
+      </div>
+    </header>
+
+    <!-- Main Portrait Dashboard Stack (Top to Bottom matching Reference Sketch) -->
+    <main class="portrait-dashboard">
+
+      <!-- Section 1: Directional D-Pad Controller -->
+      <section class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="step-num">1</span>
+            <span>CONTROLLER</span>
+          </div>
+          <span class="panel-tag">STEERING</span>
+        </div>
+
+        <div class="controller-wrapper">
+          <div class="dpad-cross">
+            <!-- Row 1: Top (Forward) -->
+            <div class="dpad-empty"></div>
+            <button class="btn-control" data-dir="FORWARD" title="Forward (W / Up)">
+              <span class="arrow-icon">▲</span>
+              <span class="key-hint">FWD [W]</span>
+            </button>
+            <div class="dpad-empty"></div>
+
+            <!-- Row 2: Left, Center Stop, Right -->
+            <button class="btn-control" data-dir="LEFT" title="Left (A / Left)">
+              <span class="arrow-icon">◀</span>
+              <span class="key-hint">LEFT [A]</span>
+            </button>
+            <button class="btn-control btn-center-stop" data-dir="STOP" title="Stop (Space)">
+              <span class="arrow-icon">■</span>
+              <span class="key-hint">STOP</span>
+            </button>
+            <button class="btn-control" data-dir="RIGHT" title="Right (D / Right)">
+              <span class="arrow-icon">▶</span>
+              <span class="key-hint">RIGHT [D]</span>
+            </button>
+
+            <!-- Row 3: Bottom (Backward) -->
+            <div class="dpad-empty"></div>
+            <button class="btn-control" data-dir="BACKWARD" title="Backward (S / Down)">
+              <span class="arrow-icon">▼</span>
+              <span class="key-hint">REV [S]</span>
+            </button>
+            <div class="dpad-empty"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Cleaner ON / OFF -->
+      <section class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="step-num">2</span>
+            <span>CLEANER ON OFF</span>
+          </div>
+          <span class="panel-tag">RELAY SWITCH</span>
+        </div>
+
+        <div class="cleaner-panel-content">
+          <div class="cleaner-status-box">
+            <span class="cleaner-status-label">MOTOR RELAY STATE</span>
+            <span class="cleaner-status-state" id="cleaner-state-text">OFF</span>
+          </div>
+
+          <button class="btn-cleaner-main" id="cleaner-toggle-btn">
+            CLEANER ON / OFF <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 3: Speed Controller -->
+      <section class="panel-card speed-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="step-num">3</span>
+            <span>SPEED CONTROLLER</span>
+          </div>
+          <span class="speed-readout" id="speed-val-display">78%</span>
+        </div>
+
+        <div class="speed-slider-wrapper">
+          <input type="range" min="0" max="255" value="200" class="speed-slider" id="speed-slider">
+
+          <div class="speed-presets-group">
+            <button class="btn-speed-step" data-speed="64">25%</button>
+            <button class="btn-speed-step" data-speed="128">50%</button>
+            <button class="btn-speed-step active" data-speed="192">75%</button>
+            <button class="btn-speed-step" data-speed="255">100%</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer Telemetry & Hotkeys -->
+    <footer class="footer-bar">
+      <div class="log-msg" id="log-output">
+        HimalixLabs AP Connected (192.168.4.1)
+      </div>
+      <div class="hotkeys">
+        <span><span class="kbd">WASD</span> Steer</span>
+        <span><span class="kbd">SPACE</span> Stop</span>
+        <span><span class="kbd">C</span> Cleaner</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
