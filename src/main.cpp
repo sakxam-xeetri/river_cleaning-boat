@@ -89,48 +89,49 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
       --font-heading: 'Space Grotesk', sans-serif; --font-body: 'Plus Jakarta Sans', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; user-select: none; touch-action: manipulation; }
-    html, body { width: 100vw; min-height: 100vh; background-color: var(--bg-main); color: var(--text-main); font-family: var(--font-body); font-size: 15px; }
-    .app-viewport { width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px 14px; }
-    .full-controller-card { width: 100%; max-width: 410px; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 24px 20px; box-shadow: 0 12px 36px rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 20px; }
-    .card-header { display: flex; justify-content: space-between; align-items: center; }
-    .card-header-actions { display: flex; align-items: center; gap: 10px; }
-    .brand-info h1 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--text-main); }
-    .brand-sub { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
-    .ota-btn { display: inline-flex; align-items: center; gap: 4px; background-color: #fef3c7; border: 1px solid #fde68a; border-radius: 20px; padding: 4px 10px; font-family: monospace; font-size: 0.72rem; font-weight: 700; color: #b45309; text-decoration: none; }
-    .status-indicator-badge { display: flex; align-items: center; justify-content: center; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 50%; width: 32px; height: 32px; }
-    .status-dot { width: 10px; height: 10px; border-radius: 50%; background-color: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
-    .card-divider { width: 100%; height: 1px; background-color: var(--border-color); }
-    .controller-section { display: flex; justify-content: center; align-items: center; padding: 6px 0; }
-    .dpad-cross { display: grid; grid-template-columns: repeat(3, 86px); grid-template-rows: repeat(3, 86px); gap: 12px; }
-    .btn-control { background-color: var(--bg-inset); border: 1.5px solid var(--border-color); border-radius: 16px; color: var(--text-main); cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.15s ease; outline: none; }
-    .btn-control .svg-icon { width: 30px; height: 30px; color: var(--text-main); }
-    .btn-control .svg-icon-stop { width: 24px; height: 24px; color: var(--accent-red); }
+    html, body { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; background-color: var(--bg-main); color: var(--text-main); font-family: var(--font-body); font-size: 14px; }
+    .app-viewport { width: 100%; height: 100vh; height: 100dvh; display: flex; justify-content: center; align-items: center; padding: 10px 12px; overflow: hidden; }
+    .full-controller-card { width: 100%; max-width: 390px; max-height: calc(100dvh - 20px); background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between; gap: 10px; overflow: hidden; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+    .card-header-actions { display: flex; align-items: center; gap: 8px; }
+    .brand-info h1 { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+    .brand-sub { font-size: 0.78rem; font-weight: 500; color: var(--text-muted); margin-top: 1px; }
+    .ota-btn { display: inline-flex; align-items: center; gap: 4px; background-color: #fef3c7; border: 1px solid #fde68a; border-radius: 20px; padding: 3px 8px; font-family: monospace; font-size: 0.68rem; font-weight: 700; color: #b45309; text-decoration: none; }
+    .status-indicator-badge { display: flex; align-items: center; justify-content: center; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 50%; width: 28px; height: 28px; }
+    .status-dot { width: 9px; height: 9px; border-radius: 50%; background-color: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+    .card-divider { width: 100%; height: 1px; background-color: var(--border-color); flex-shrink: 0; }
+    .controller-section { display: flex; justify-content: center; align-items: center; padding: 2px 0; flex-shrink: 0; }
+    .dpad-cross { display: grid; grid-template-columns: repeat(3, min(74px, 20vw)); grid-template-rows: repeat(3, min(74px, 20vw)); gap: 10px; }
+    .btn-control { background-color: var(--bg-inset); border: 1.5px solid var(--border-color); border-radius: 14px; color: var(--text-main); cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.15s ease; outline: none; }
+    .btn-control .svg-icon { width: 26px; height: 26px; color: var(--text-main); }
+    .btn-control .svg-icon-stop { width: 22px; height: 22px; color: var(--accent-red); }
     .btn-control:hover { background-color: var(--bg-hover); border-color: var(--border-dark); }
     .btn-control:active, .btn-control.active { background-color: var(--brand-black); border-color: var(--brand-black); }
     .btn-control:active .svg-icon, .btn-control.active .svg-icon { color: #ffffff; }
     .btn-control.btn-center-stop { background-color: var(--accent-red-bg); border-color: var(--accent-red-border); }
     .btn-control.btn-center-stop:active, .btn-control.btn-center-stop.active { background-color: var(--accent-red); border-color: var(--accent-red); }
     .btn-control.btn-center-stop:active .svg-icon-stop, .btn-control.btn-center-stop.active .svg-icon-stop { color: #ffffff; }
-    .cleaner-section { display: flex; flex-direction: column; gap: 12px; }
+    .cleaner-section { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
     .cleaner-status-row { display: flex; justify-content: space-between; align-items: center; }
-    .cleaner-label { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); }
-    .cleaner-state-badge { font-family: monospace; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 12px; padding: 2px 10px; }
+    .cleaner-label { font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); }
+    .cleaner-state-badge { font-family: monospace; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 10px; padding: 1px 8px; }
     .cleaner-state-badge.active { color: var(--accent-green); background-color: var(--accent-green-bg); border-color: var(--accent-green-border); }
-    .btn-cleaner-main { width: 100%; background-color: var(--brand-black); border: 1.5px solid var(--brand-black); border-radius: 30px; color: #ffffff; font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; padding: 14px 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s ease; outline: none; }
-    .btn-cleaner-main .btn-power-icon { width: 20px; height: 20px; }
+    .btn-cleaner-main { width: 100%; background-color: var(--brand-black); border: 1.5px solid var(--brand-black); border-radius: 26px; color: #ffffff; font-family: var(--font-heading); font-size: 0.88rem; font-weight: 700; padding: 11px 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease; outline: none; }
+    .btn-cleaner-main .btn-power-icon { width: 18px; height: 18px; }
     .btn-cleaner-main.active { background-color: var(--accent-green); border-color: var(--accent-green); }
-    .speed-section { display: flex; flex-direction: column; gap: 12px; }
+    .speed-section { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
     .speed-header-row { display: flex; justify-content: space-between; align-items: center; }
-    .speed-label { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); }
-    .speed-readout { font-family: monospace; font-size: 1.1rem; font-weight: 700; color: var(--brand-black); }
-    .speed-slider-wrapper { display: flex; flex-direction: column; gap: 12px; }
-    input[type="range"].speed-slider { -webkit-appearance: none; width: 100%; height: 10px; background: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 6px; outline: none; }
-    input[type="range"].speed-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--brand-black); border: 2px solid #ffffff; cursor: pointer; }
-    .speed-presets-group { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .btn-speed-step { background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-secondary); font-family: monospace; font-size: 0.8rem; font-weight: 700; padding: 8px 4px; cursor: pointer; text-align: center; }
+    .speed-label { font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); }
+    .speed-readout { font-family: monospace; font-size: 0.95rem; font-weight: 700; color: var(--brand-black); }
+    .speed-slider-wrapper { display: flex; flex-direction: column; gap: 8px; }
+    input[type="range"].speed-slider { -webkit-appearance: none; width: 100%; height: 8px; background: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 4px; outline: none; }
+    input[type="range"].speed-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--brand-black); border: 2px solid #ffffff; cursor: pointer; }
+    .speed-presets-group { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .btn-speed-step { background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-family: monospace; font-size: 0.75rem; font-weight: 700; padding: 6px 2px; cursor: pointer; text-align: center; }
     .btn-speed-step:hover, .btn-speed-step.active { background-color: var(--brand-black); border-color: var(--brand-black); color: #ffffff; }
-    .card-footer-ota { display: flex; justify-content: center; align-items: center; }
-    .ota-footer-link { display: inline-flex; align-items: center; gap: 6px; background-color: #fef3c7; border: 1px solid #fde68a; border-radius: 20px; padding: 6px 14px; font-family: monospace; font-size: 0.72rem; font-weight: 700; color: #b45309; text-decoration: none; }
+    .card-footer-ota { display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
+    .ota-footer-link { display: inline-flex; align-items: center; gap: 5px; background-color: #fef3c7; border: 1px solid #fde68a; border-radius: 20px; padding: 4px 12px; font-family: monospace; font-size: 0.68rem; font-weight: 700; color: #b45309; text-decoration: none; }
+    @media (max-height: 700px) { .full-controller-card { padding: 12px 14px; gap: 8px; } .dpad-cross { grid-template-columns: repeat(3, min(62px, 16vw)); grid-template-rows: repeat(3, min(62px, 16vw)); gap: 6px; } .btn-cleaner-main { padding: 9px 12px; } }
   </style>
 </head>
 <body>
@@ -143,7 +144,7 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
         </div>
         <div class="card-header-actions">
           <a href="/update" target="_blank" class="ota-btn" title="Over-The-Air Firmware Update (/update)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
             <span>OTA</span>
           </a>
           <div class="status-indicator-badge">
@@ -205,7 +206,7 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
       <div class="card-divider"></div>
       <footer class="card-footer-ota">
         <a href="/update" target="_blank" class="ota-footer-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
           FIRMWARE OTA UPDATE ⚡
         </a>
       </footer>

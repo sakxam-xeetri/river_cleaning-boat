@@ -1,7 +1,6 @@
 /* ==========================================================================
-   HIMALIXLABS RIVER CLEANING BOAT CONTROLLER - PREMIUM SINGLE CARD UI
-   Aesthetic: Himalix Web Design (Minimalist, Crisp, High-End)
-   Layout: Single Unified Full-Size Controller Card with SVG Icons
+   HIMALIXLABS RIVER CLEANING BOAT CONTROLLER - SINGLE VIEWPORT (ZERO SCROLL)
+   Optimized for Mobile Portrait (iPhone 14 Pro & All Mobile Displays)
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@600;700&display=swap');
@@ -34,7 +33,7 @@
   --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --shadow-card: 0 12px 36px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02);
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
@@ -53,37 +52,45 @@
 html,
 body {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background-color: var(--bg-main);
   color: var(--text-main);
   font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Outer Viewport Container */
+/* Outer Viewport Container - Locked to 100dvh Zero Scroll */
 .app-viewport {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 14px;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* SINGLE UNIFIED FULL-SIZE CONTROLLER CARD */
 .full-controller-card {
   width: 100%;
-  max-width: 410px;
+  max-width: 390px;
+  max-height: calc(100dvh - 20px);
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 24px;
-  padding: 24px 20px;
+  border-radius: 20px;
+  padding: 16px 16px;
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 10px;
+  overflow: hidden;
 }
 
 /* Card Header */
@@ -91,28 +98,37 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .brand-info h1 {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--text-main);
   letter-spacing: -0.5px;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .brand-info h1 span {
   color: var(--brand-black);
   text-decoration: underline;
   text-decoration-color: var(--border-color);
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
+}
+
+.brand-sub {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: 1px;
 }
 
 .card-header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .ota-btn {
@@ -122,9 +138,9 @@ body {
   background-color: #fef3c7;
   border: 1px solid #fde68a;
   border-radius: 20px;
-  padding: 4px 10px;
+  padding: 3px 8px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   color: #b45309;
   text-decoration: none;
@@ -133,14 +149,13 @@ body {
 }
 
 .ota-btn .ota-icon {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 }
 
 .ota-btn:hover {
   background-color: #fde68a;
   color: #78350f;
-  transform: translateY(-1px);
 }
 
 .status-indicator-badge {
@@ -150,13 +165,13 @@ body {
   background-color: var(--bg-inset);
   border: 1px solid var(--border-color);
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
 }
 
 .status-dot {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background-color: var(--accent-green);
   box-shadow: 0 0 8px var(--accent-green);
@@ -179,6 +194,7 @@ body {
   width: 100%;
   height: 1px;
   background-color: var(--border-color);
+  flex-shrink: 0;
 }
 
 /* SECTION 1: DIRECTIONAL D-PAD WITH PURE PREMIUM SVG ICONS */
@@ -186,14 +202,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px 0;
+  padding: 2px 0;
+  flex-shrink: 0;
 }
 
 .dpad-cross {
   display: grid;
-  grid-template-columns: repeat(3, 86px);
-  grid-template-rows: repeat(3, 86px);
-  gap: 12px;
+  grid-template-columns: repeat(3, min(74px, 20vw));
+  grid-template-rows: repeat(3, min(74px, 20vw));
+  gap: 10px;
 }
 
 .dpad-empty {
@@ -203,7 +220,7 @@ body {
 .btn-control {
   background-color: var(--bg-inset);
   border: 1.5px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 14px;
   color: var(--text-main);
   cursor: pointer;
   display: flex;
@@ -215,15 +232,15 @@ body {
 }
 
 .btn-control .svg-icon {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   color: var(--text-main);
   transition: transform 0.15s ease, color 0.15s ease;
 }
 
 .btn-control .svg-icon-stop {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   color: var(--accent-red);
   transition: transform 0.15s ease, color 0.15s ease;
 }
@@ -231,15 +248,14 @@ body {
 .btn-control:hover {
   background-color: var(--bg-hover);
   border-color: var(--border-dark);
-  transform: translateY(-2px);
 }
 
 .btn-control:active,
 .btn-control.active {
   background-color: var(--brand-black);
   border-color: var(--brand-black);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-  transform: scale(0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(0.94);
 }
 
 .btn-control:active .svg-icon,
@@ -247,7 +263,7 @@ body {
   color: #ffffff;
 }
 
-/* Special Center Stop Button */
+/* Center Stop Button */
 .btn-control.btn-center-stop {
   background-color: var(--accent-red-bg);
   border-color: var(--accent-red-border);
@@ -273,7 +289,8 @@ body {
 .cleaner-section {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .cleaner-status-row {
@@ -284,7 +301,7 @@ body {
 
 .cleaner-label {
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: var(--text-secondary);
@@ -292,13 +309,13 @@ body {
 
 .cleaner-state-badge {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--text-muted);
   background-color: var(--bg-inset);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 2px 10px;
+  border-radius: 10px;
+  padding: 1px 8px;
 }
 
 .cleaner-state-badge.active {
@@ -311,32 +328,30 @@ body {
   width: 100%;
   background-color: var(--brand-black);
   border: 1.5px solid var(--brand-black);
-  border-radius: 30px;
+  border-radius: 26px;
   color: #ffffff;
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  padding: 14px 20px;
+  padding: 11px 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: var(--shadow-sm);
   outline: none;
 }
 
 .btn-cleaner-main .btn-power-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .btn-cleaner-main:hover {
   background-color: var(--brand-black-hover);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
 }
 
 .btn-cleaner-main.active {
@@ -350,7 +365,8 @@ body {
 .speed-section {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .speed-header-row {
@@ -361,7 +377,7 @@ body {
 
 .speed-label {
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: var(--text-secondary);
@@ -369,7 +385,7 @@ body {
 
 .speed-readout {
   font-family: var(--font-mono);
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--brand-black);
 }
@@ -377,62 +393,56 @@ body {
 .speed-slider-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 input[type="range"].speed-slider {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 10px;
+  height: 8px;
   background: var(--bg-inset);
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 4px;
   outline: none;
 }
 
 input[type="range"].speed-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: var(--brand-black);
   border: 2px solid #ffffff;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.15s ease;
-}
-
-input[type="range"].speed-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
 }
 
 input[type="range"].speed-slider::-moz-range-thumb {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: var(--brand-black);
   border: 2px solid #ffffff;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .speed-presets-group {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 6px;
 }
 
 .btn-speed-step {
   background-color: var(--bg-inset);
   border: 1px solid var(--border-color);
-  border-radius: 10px;
+  border-radius: 8px;
   color: var(--text-secondary);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 8px 4px;
+  padding: 6px 2px;
   cursor: pointer;
   text-align: center;
   transition: all 0.15s ease;
@@ -449,7 +459,6 @@ input[type="range"].speed-slider::-moz-range-thumb {
   background-color: var(--brand-black);
   border-color: var(--brand-black);
   color: #ffffff;
-  box-shadow: var(--shadow-sm);
 }
 
 /* Card Footer OTA Link */
@@ -457,18 +466,19 @@ input[type="range"].speed-slider::-moz-range-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .ota-footer-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background-color: #fef3c7;
   border: 1px solid #fde68a;
   border-radius: 20px;
-  padding: 6px 14px;
+  padding: 4px 12px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   color: #b45309;
   text-decoration: none;
@@ -479,18 +489,20 @@ input[type="range"].speed-slider::-moz-range-thumb {
 .ota-footer-link:hover {
   background-color: #fde68a;
   color: #78350f;
-  transform: translateY(-1px);
 }
 
-/* Responsive Scaling for smaller screens */
-@media (max-width: 380px) {
+/* Compact devices (Height < 700px) */
+@media (max-height: 700px) {
   .full-controller-card {
-    padding: 18px 14px;
-    gap: 16px;
+    padding: 12px 14px;
+    gap: 8px;
   }
   .dpad-cross {
-    grid-template-columns: repeat(3, 76px);
-    grid-template-rows: repeat(3, 76px);
-    gap: 8px;
+    grid-template-columns: repeat(3, min(62px, 16vw));
+    grid-template-rows: repeat(3, min(62px, 16vw));
+    gap: 6px;
+  }
+  .btn-cleaner-main {
+    padding: 9px 12px;
   }
 }
