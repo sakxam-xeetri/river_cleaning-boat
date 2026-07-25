@@ -2,7 +2,17 @@
 
 An advanced, web-controlled autonomous & manual **River Cleaning Boat** system powered by an **ESP8266**, **L298N Motor Driver** (differential dual-motor steering), and a **Relay Module** (controlling the river trash collecting/cleaner motor).
 
-Features an **Open Wi-Fi Access Point** (`RIVER_CLEANER_BOT`), **Captive Portal auto-popup**, and a high-performance **Landscape Web Interface** with a dark matte & neon crimson red cyber HUD aesthetic, **100% sharp edges** (0px border radius), and direct support for **PlatformIO IDE** and **Arduino IDE**.
+Features an **Open Wi-Fi Access Point** (`RIVER_CLEANER_BOT`), **Captive Portal auto-popup**, and a high-performance **Mobile Responsive Portrait Web Interface** with the clean, modern **Himalix Platform Web UI** design aesthetic, touch-optimized mobile controls, and direct support for **PlatformIO IDE** and **Arduino IDE**.
+
+---
+
+## 📱 Mobile Portrait Layout (Matching Reference Sketch & Himalix Web Design UI)
+
+1. **Header Box (Top)**: "River Cleaning Boat by HimalixLabs" with live Access Point connection status badge and Himalix Platform branding pill.
+2. **Step 1 - Directional D-Pad Controller (Upper Middle)**: Touch-optimized 4-direction cross pad (Forward ▲, Left ◀, Stop ■, Right ▶, Backward ▼) for dual motor steering.
+3. **Step 2 - Cleaner ON / OFF (Lower Middle)**: Prominent relay motor switch button with live relay state readout (`OFF` / `ACTIVE (ON)`).
+4. **Step 3 - Speed Controller (Bottom)**: Smooth PWM speed slider with quick preset pills (`25%`, `50%`, `75%`, `100%`).
+5. **System Log Footer**: Real-time HTTP command telemetry log and WASD keyboard hotkey map.
 
 ---
 

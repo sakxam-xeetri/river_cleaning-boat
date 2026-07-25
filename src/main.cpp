@@ -75,78 +75,81 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>River Cleaning Boat by HimalixLabs</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
     :root {
-      --bg-main: #050507; --bg-card: #0c0c12; --bg-card-hover: #13131c; --bg-inset: #030305;
-      --red-primary: #ff003c; --red-bright: #ff2a55; --red-dim: #33000b; --red-glow: rgba(255,0,60,0.45);
-      --text-main: #f0f0f5; --text-muted: #8c8ca3; --text-dim: #505066; --border-color: #222230;
-      --font-heading: 'Orbitron', sans-serif; --font-body: 'Rajdhani', sans-serif;
+      --bg-main: #f4f5f8; --bg-card: #ffffff; --bg-inset: #f8f9fa; --bg-hover: #f1f5f9;
+      --text-main: #0f172a; --text-secondary: #475569; --text-muted: #64748b; --text-light: #94a3b8;
+      --border-color: #e2e8f0; --border-dark: #0f172a; --brand-black: #111111;
+      --accent-green: #10b981; --accent-green-bg: #ecfdf5; --accent-green-border: #a7f3d0; --accent-red: #ef4444;
+      --font-heading: 'Space Grotesk', sans-serif; --font-body: 'Plus Jakarta Sans', sans-serif;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; user-select: none; touch-action: manipulation; }
-    html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: var(--bg-main); color: var(--text-main); font-family: var(--font-body); font-size: 16px; background-image: radial-gradient(circle at 50% 10%, rgba(255, 0, 60, 0.08) 0%, transparent 60%), linear-gradient(rgba(255, 0, 60, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 0, 60, 0.025) 1px, transparent 1px); background-size: 100% 100%, 24px 24px, 24px 24px; }
-    .app-container { display: grid; grid-template-rows: auto 1fr auto auto; width: 100vw; height: 100vh; padding: 12px 16px; gap: 12px; }
-    .top-header-wrapper { display: flex; justify-content: center; align-items: center; position: relative; }
-    .brand-box { background-color: var(--bg-card); border: 2px solid var(--red-primary); box-shadow: 0 0 20px var(--red-glow); padding: 10px 36px; text-align: center; position: relative; }
-    .brand-box::before, .brand-box::after { content: ''; position: absolute; width: 8px; height: 8px; border-style: solid; border-color: #fff; }
-    .brand-box::before { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
-    .brand-box::after { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
-    .brand-box h1 { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
-    .brand-box h1 span { color: var(--red-primary); }
-    .brand-sub { font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 4px; color: var(--red-bright); text-transform: uppercase; margin-top: 2px; }
-    .hud-status-badge { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 8px; background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 6px 12px; font-size: 0.75rem; font-family: monospace; }
-    .status-dot { width: 8px; height: 8px; background-color: var(--red-primary); box-shadow: 0 0 8px var(--red-primary); }
-    .main-dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; height: 100%; }
-    .panel-card { background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 16px; display: flex; flex-direction: column; position: relative; }
-    .panel-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background-color: var(--red-primary); }
-    .panel-header-label { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: var(--red-primary); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; }
-    .panel-tag { font-size: 0.65rem; font-family: monospace; color: var(--text-dim); }
-    .controller-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; }
-    .dpad-cross { display: grid; grid-template-columns: repeat(3, 76px); grid-template-rows: repeat(3, 76px); gap: 8px; }
-    .btn-control { background-color: var(--bg-inset); border: 1px solid var(--border-color); color: var(--text-main); font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: all 0.1s ease; }
-    .btn-control .key-hint { font-size: 0.6rem; font-family: monospace; color: var(--text-dim); margin-top: 2px; }
-    .btn-control:hover { background-color: var(--bg-card-hover); border-color: var(--red-primary); color: var(--red-bright); }
-    .btn-control:active, .btn-control.active { background-color: var(--red-primary); border-color: var(--red-bright); color: #fff; box-shadow: 0 0 18px var(--red-glow); transform: scale(0.96); }
-    .btn-control.btn-center-stop { background-color: var(--red-dim); border: 1px solid var(--red-primary); color: var(--red-bright); }
-    .cleaner-panel-content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; }
-    .cleaner-status-box { text-align: center; background-color: var(--bg-inset); border: 1px solid var(--border-color); padding: 16px; width: 100%; max-width: 280px; }
-    .cleaner-status-title { font-family: var(--font-heading); font-size: 0.8rem; color: var(--text-muted); letter-spacing: 1.5px; }
-    .cleaner-status-state { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 900; color: var(--text-dim); margin-top: 4px; letter-spacing: 2px; }
-    .cleaner-status-state.active { color: var(--red-bright); text-shadow: 0 0 10px var(--red-glow); }
-    .btn-cleaner-main { background-color: var(--bg-card); border: 2px solid var(--border-color); color: var(--text-main); font-family: var(--font-heading); font-size: 1.1rem; font-weight: 900; letter-spacing: 2px; padding: 20px 32px; width: 100%; max-width: 280px; cursor: pointer; text-transform: uppercase; transition: all 0.15s ease; }
-    .btn-cleaner-main:hover { border-color: var(--red-primary); color: var(--red-bright); background-color: var(--red-dim); }
-    .btn-cleaner-main.active { background-color: var(--red-primary); border-color: var(--red-bright); color: #fff; box-shadow: 0 0 25px var(--red-glow); }
-    .speed-panel-card { background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 14px 20px; display: flex; flex-direction: column; gap: 8px; position: relative; }
-    .speed-panel-card::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background-color: var(--red-primary); }
-    .speed-header-row { display: flex; justify-content: space-between; align-items: center; }
-    .speed-label { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: var(--red-primary); text-transform: uppercase; }
-    .speed-readout { font-family: monospace; font-size: 1.2rem; font-weight: 700; color: var(--red-bright); }
-    .speed-slider-wrapper { display: flex; align-items: center; gap: 16px; }
-    input[type="range"].speed-slider { -webkit-appearance: none; flex: 1; height: 20px; background: var(--bg-inset); border: 1px solid var(--border-color); outline: none; }
-    input[type="range"].speed-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 32px; background: var(--red-primary); border: 1px solid var(--red-bright); cursor: pointer; }
-    .speed-presets-group { display: flex; gap: 8px; }
-    .btn-speed-step { background-color: var(--bg-inset); border: 1px solid var(--border-color); color: var(--text-muted); font-family: monospace; font-size: 0.75rem; padding: 6px 12px; cursor: pointer; }
-    .btn-speed-step:hover, .btn-speed-step.active { border-color: var(--red-primary); color: var(--red-bright); background-color: var(--red-dim); }
-    .footer-bar { display: flex; justify-content: space-between; align-items: center; background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 4px 12px; font-family: monospace; font-size: 0.75rem; color: var(--text-muted); }
-    .log-msg { color: var(--red-bright); }
-    .hotkeys { display: flex; gap: 12px; color: var(--text-dim); }
-    .kbd { color: var(--text-main); background-color: var(--bg-inset); border: 1px solid var(--border-color); padding: 0 4px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; user-select: none; touch-action: manipulation; }
+    html, body { width: 100vw; min-height: 100vh; background-color: var(--bg-main); color: var(--text-main); font-family: var(--font-body); font-size: 15px; }
+    .app-container { width: 100%; max-width: 440px; margin: 0 auto; min-height: 100vh; padding: 16px 14px; display: flex; flex-direction: column; gap: 16px; }
+    .top-header { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 12px; }
+    .header-top-row { display: flex; justify-content: space-between; align-items: center; }
+    .pill-badge { display: inline-flex; align-items: center; gap: 6px; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 20px; padding: 4px 10px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: var(--text-secondary); text-transform: uppercase; }
+    .hud-status-badge { display: inline-flex; align-items: center; gap: 6px; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 20px; padding: 4px 10px; font-size: 0.7rem; font-family: monospace; font-weight: 600; color: var(--text-secondary); }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
+    .brand-title-box h1 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--text-main); }
+    .brand-sub { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+    .portrait-dashboard { display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .panel-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 16px; }
+    .panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
+    .panel-title { display: flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-main); }
+    .step-num { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border-dark); display: flex; align-items: center; justify-content: center; font-family: monospace; font-size: 0.75rem; font-weight: 700; }
+    .panel-tag { font-family: monospace; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 6px; padding: 2px 6px; }
+    .controller-wrapper { display: flex; justify-content: center; align-items: center; padding: 10px 0; }
+    .dpad-cross { display: grid; grid-template-columns: repeat(3, 82px); grid-template-rows: repeat(3, 82px); gap: 10px; }
+    .btn-control { background-color: var(--bg-inset); border: 1.5px solid var(--border-color); border-radius: 12px; color: var(--text-main); font-family: var(--font-heading); cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; transition: all 0.15s ease; outline: none; }
+    .btn-control .arrow-icon { font-size: 1.3rem; }
+    .btn-control .key-hint { font-size: 0.6rem; font-family: monospace; color: var(--text-muted); }
+    .btn-control:hover { background-color: var(--bg-hover); border-color: var(--border-dark); }
+    .btn-control:active, .btn-control.active { background-color: var(--brand-black); border-color: var(--brand-black); color: #fff; transform: scale(0.95); }
+    .btn-control:active .key-hint, .btn-control.active .key-hint { color: #a1a1aa; }
+    .btn-control.btn-center-stop { background-color: #fff1f2; border-color: #fecdd3; color: var(--accent-red); }
+    .btn-control.btn-center-stop:active, .btn-control.btn-center-stop.active { background-color: var(--accent-red); border-color: var(--accent-red); color: #fff; }
+    .cleaner-panel-content { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+    .cleaner-status-box { width: 100%; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+    .cleaner-status-label { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); }
+    .cleaner-status-state { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-muted); }
+    .cleaner-status-state.active { color: var(--accent-green); background-color: var(--accent-green-bg); border: 1px solid var(--accent-green-border); padding: 2px 10px; border-radius: 20px; }
+    .btn-cleaner-main { width: 100%; background-color: var(--bg-card); border: 1.5px solid var(--border-dark); border-radius: 30px; color: var(--text-main); font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; padding: 14px 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease; outline: none; }
+    .btn-cleaner-main:hover, .btn-cleaner-main.active { background-color: var(--brand-black); border-color: var(--brand-black); color: #fff; }
+    .speed-readout { font-family: monospace; font-size: 1.1rem; font-weight: 700; color: var(--brand-black); }
+    .speed-slider-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    input[type="range"].speed-slider { -webkit-appearance: none; width: 100%; height: 10px; background: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 6px; outline: none; }
+    input[type="range"].speed-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--brand-black); border: 2px solid #fff; cursor: pointer; }
+    .speed-presets-group { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .btn-speed-step { background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-family: monospace; font-size: 0.8rem; font-weight: 600; padding: 8px 4px; cursor: pointer; text-align: center; }
+    .btn-speed-step:hover, .btn-speed-step.active { background-color: var(--brand-black); border-color: var(--brand-black); color: #fff; }
+    .footer-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; }
+    .log-msg { font-family: monospace; font-size: 0.72rem; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hotkeys { display: flex; justify-content: space-between; font-family: monospace; font-size: 0.68rem; color: var(--text-muted); }
+    .kbd { background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 4px; padding: 1px 4px; font-weight: 600; color: var(--text-main); }
   </style>
 </head>
 <body>
   <div class="app-container">
-    <header class="top-header-wrapper">
-      <div class="brand-box">
+    <header class="top-header">
+      <div class="header-top-row">
+        <div class="pill-badge">HIMALIX PLATFORM</div>
+        <div class="hud-status-badge">
+          <span class="status-dot"></span>
+          <span>ONLINE AP</span>
+        </div>
+      </div>
+      <div class="brand-title-box">
         <h1>River Cleaning <span>Boat</span></h1>
         <div class="brand-sub">by HimalixLabs</div>
       </div>
-      <div class="hud-status-badge">
-        <span class="status-dot"></span>
-        <span>ONLINE AP</span>
-      </div>
     </header>
-    <main class="main-dashboard">
+    <main class="portrait-dashboard">
       <section class="panel-card">
-        <div class="panel-header-label"><span>CONTROLLER</span><span class="panel-tag">STEERING</span></div>
+        <div class="panel-header">
+          <div class="panel-title"><span class="step-num">1</span><span>CONTROLLER</span></div>
+          <span class="panel-tag">STEERING</span>
+        </div>
         <div class="controller-wrapper">
           <div class="dpad-cross">
             <div style="visibility:hidden;"></div>
@@ -162,31 +165,34 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
         </div>
       </section>
       <section class="panel-card">
-        <div class="panel-header-label"><span>CLEANER ON / OFF</span><span class="panel-tag">RELAY MODULE</span></div>
+        <div class="panel-header">
+          <div class="panel-title"><span class="step-num">2</span><span>CLEANER ON OFF</span></div>
+          <span class="panel-tag">RELAY SWITCH</span>
+        </div>
         <div class="cleaner-panel-content">
           <div class="cleaner-status-box">
-            <div class="cleaner-status-title">MOTOR RELAY STATE</div>
-            <div class="cleaner-status-state" id="cleaner-state-text">OFF</div>
+            <span class="cleaner-status-label">MOTOR RELAY STATE</span>
+            <span class="cleaner-status-state" id="cleaner-state-text">OFF</span>
           </div>
-          <button class="btn-cleaner-main" id="cleaner-toggle-btn">CLEANER ON / OFF</button>
+          <button class="btn-cleaner-main" id="cleaner-toggle-btn">CLEANER ON / OFF →</button>
+        </div>
+      </section>
+      <section class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title"><span class="step-num">3</span><span>SPEED CONTROLLER</span></div>
+          <span class="speed-readout" id="speed-val-display">78%</span>
+        </div>
+        <div class="speed-slider-wrapper">
+          <input type="range" min="0" max="255" value="200" class="speed-slider" id="speed-slider">
+          <div class="speed-presets-group">
+            <button class="btn-speed-step" data-speed="64">25%</button>
+            <button class="btn-speed-step" data-speed="128">50%</button>
+            <button class="btn-speed-step active" data-speed="192">75%</button>
+            <button class="btn-speed-step" data-speed="255">100%</button>
+          </div>
         </div>
       </section>
     </main>
-    <section class="speed-panel-card">
-      <div class="speed-header-row">
-        <span class="speed-label">SPEED CONTROLLER</span>
-        <span class="speed-readout" id="speed-val-display">78%</span>
-      </div>
-      <div class="speed-slider-wrapper">
-        <input type="range" min="0" max="255" value="200" class="speed-slider" id="speed-slider">
-        <div class="speed-presets-group">
-          <button class="btn-speed-step" data-speed="64">25%</button>
-          <button class="btn-speed-step" data-speed="128">50%</button>
-          <button class="btn-speed-step active" data-speed="192">75%</button>
-          <button class="btn-speed-step" data-speed="255">100%</button>
-        </div>
-      </div>
-    </section>
     <footer class="footer-bar">
       <div class="log-msg" id="log-output">HimalixLabs River Cleaner AP Connected (192.168.4.1)</div>
       <div class="hotkeys"><span><span class="kbd">WASD</span> Steer</span><span><span class="kbd">SPACE</span> Stop</span><span><span class="kbd">C</span> Cleaner</span></div>
