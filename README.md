@@ -99,12 +99,32 @@ upload_speed = 921600
 
 ---
 
+## ⚡ Over-The-Air (OTA) Firmware Updates
+
+This ESP8266 boat controller supports **dual wireless Over-The-Air (OTA) firmware updates**, allowing you to upload new firmware binary files without ever plugging in a USB cable!
+
+### 🌐 Method 1: Web Browser OTA (Mobile & PC)
+1. Connect your smartphone, tablet, or PC to the `RIVER_CLEANER_BOT` Wi-Fi Access Point.
+2. Click the **OTA ⚡** badge in the top header or navigate to:
+   ```text
+   http://192.168.4.1/update
+   ```
+3. Click **Choose File** and select your compiled `.bin` firmware file.
+4. Click **Update Firmware**. The ESP8266 will upload, flash, and reboot automatically within seconds!
+
+### 💻 Method 2: Wireless ArduinoOTA (IDE Direct Flashing)
+1. Connect your computer to `RIVER_CLEANER_BOT` Wi-Fi.
+2. In **Arduino IDE** or **PlatformIO**, select the network port `RIVER_CLEANER_BOT at 192.168.4.1`.
+3. Click **Upload** to flash wirelessly over port `8266`.
+
+---
+
 ## 📁 Workspace Files
 
 - [platformio.ini](file:///d:/river_cleaning%20boat/platformio.ini) – PlatformIO IDE build configuration.
-- [src/main.cpp](file:///d:/river_cleaning%20boat/src/main.cpp) – PlatformIO C++ main source code.
-- [river_cleaner_bot.ino](file:///d:/river_cleaning%20boat/river_cleaner_bot.ino) – Arduino IDE C++ firmware.
-- [index.html](file:///d:/river_cleaning%20boat/index.html) – Landscape web interface dashboard HTML.
-- [styles.css](file:///d:/river_cleaning%20boat/styles.css) – Dark & Crimson Red sharp HUD stylesheet.
+- [src/main.cpp](file:///d:/river_cleaning%20boat/src/main.cpp) – PlatformIO C++ main source code with OTA & HTTP handlers.
+- [river_cleaner_bot.ino](file:///d:/river_cleaning%20boat/river_cleaner_bot/river_cleaner_bot.ino) – Arduino IDE C++ firmware with OTA & HTTP handlers.
+- [index.html](file:///d:/river_cleaning%20boat/index.html) – Responsive portrait mobile web controller HTML.
+- [styles.css](file:///d:/river_cleaning%20boat/styles.css) – Himalix Platform light web UI stylesheet with OTA badges.
 - [app.js](file:///d:/river_cleaning%20boat/app.js) – Real-time event handling & mock browser testing engine.
-- [README.md](file:///d:/river_cleaning%20boat/README.md) – Project setup & wiring documentation.
+- [README.md](file:///d:/river_cleaning%20boat/README.md) – Project setup, wiring, & OTA documentation.

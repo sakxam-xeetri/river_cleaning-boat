@@ -25,6 +25,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <DNSServer.h>
+#include <ArduinoOTA.h>
+#include <ESP8266HTTPUpdateServer.h>
 
 // ----------------------------------------------------------------------------------
 // PIN DEFINITIONS (SERIAL D1 TO D7 MAPPING)
@@ -45,6 +47,7 @@ const int PIN_RELAY = D7; // GPIO13 - Cleaner Motor Relay
 // GLOBAL STATE & OBJECTS
 // ----------------------------------------------------------------------------------
 ESP8266WebServer server(80);
+ESP8266HTTPUpdateServer httpUpdater;
 DNSServer dnsServer;
 
 String currentDirection = "STOP";
@@ -127,9 +130,12 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
     <header class="top-header">
       <div class="header-top-row">
         <div class="pill-badge">HIMALIX PLATFORM</div>
-        <div class="hud-status-badge">
-          <span class="status-dot"></span>
-          <span>ONLINE AP</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <a href="/update" target="_blank" style="background:#fef3c7;border:1px solid #fde68a;border-radius:20px;padding:3px 8px;font-family:monospace;font-size:0.68rem;font-weight:700;color:#b45309;text-decoration:none;">OTA ⚡</a>
+          <div class="hud-status-badge">
+            <span class="status-dot"></span>
+            <span>ONLINE AP</span>
+          </div>
         </div>
       </div>
       <div class="brand-title-box">
@@ -187,7 +193,10 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
       </section>
     </main>
     <footer class="footer-bar">
-      <div class="log-msg" id="log-output">HimalixLabs River Cleaner AP Connected (192.168.4.1)</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="log-msg" id="log-output">HimalixLabs River Cleaner AP Connected (192.168.4.1)</div>
+        <a href="/update" target="_blank" style="font-family:monospace;font-size:0.68rem;font-weight:700;color:#b45309;text-decoration:none;background:#fef3c7;border:1px solid #fde68a;border-radius:4px;padding:1px 6px;">OTA ⚡</a>
+      </div>
       <div class="hotkeys"><span><span class="kbd">WASD</span> Steer</span><span><span class="kbd">SPACE</span> Stop</span><span><span class="kbd">C</span> Cleaner</span></div>
     </footer>
   </div>
@@ -374,6 +383,43 @@ void handleNotFound() {
 }
 
 // ----------------------------------------------------------------------------------
+// OVER-THE-AIR (OTA) UPDATER SETUP
+// ----------------------------------------------------------------------------------
+void setupOTA() {
+  // Bind Web Browser Firmware Uploader to /update
+  httpUpdater.setup(&server, "/update");
+
+  // Configure ArduinoOTA for IDE network flashing
+  ArduinoOTA.setHostname("RIVER_CLEANER_BOT");
+
+  ArduinoOTA.onStart([]() {
+    stopMotors();
+    setCleanerState(false);
+    Serial.println("[OTA] Wireless firmware update started. Motors stopped.");
+  });
+
+  ArduinoOTA.onEnd([]() {
+    Serial.println("\n[OTA] Firmware upload complete! Rebooting ESP8266...");
+  });
+
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+    Serial.printf("[OTA] Flashing Progress: %u%%\r", (progress / (total / 100)));
+  });
+
+  ArduinoOTA.onError([](ota_error_t error) {
+    Serial.printf("[OTA] Error[%u]: ", error);
+    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+    else if (error == OTA_END_ERROR) Serial.println("End Failed");
+  });
+
+  ArduinoOTA.begin();
+  Serial.println("[OTA] Wireless OTA Services Active (Web /update & ArduinoOTA)");
+}
+
+// ----------------------------------------------------------------------------------
 // SETUP & MAIN LOOP
 // ----------------------------------------------------------------------------------
 
@@ -418,11 +464,14 @@ void setup() {
 
   server.begin();
   Serial.println("[HTTP] Server listening on port 80");
+
+  setupOTA();
 }
 
 void loop() {
   dnsServer.processNextRequest();
   server.handleClient();
+  ArduinoOTA.handle();
 
   if (currentDirection != "STOP" && (millis() - lastCommandTime > FAILSAFE_TIMEOUT_MS)) {
     Serial.println("[SAFETY] Fail-safe timeout triggered! Auto-stopping motors.");

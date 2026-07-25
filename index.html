@@ -12,7 +12,7 @@
 
   <div class="app-container">
 
-    <!-- Top Header: River Cleaning Boat by HimalixLabs (Matching Reference Controller & Himalix Web Design UI) -->
+    <!-- Top Header: River Cleaning Boat by HimalixLabs -->
     <header class="top-header">
       <div class="header-top-row">
         <div class="pill-badge">
@@ -25,9 +25,20 @@
           HIMALIX PLATFORM
         </div>
 
-        <div class="hud-status-badge">
-          <span class="status-dot" id="status-indicator"></span>
-          <span id="status-text">ESP8266 AP</span>
+        <div class="header-badges-right">
+          <a href="/update" target="_blank" class="ota-badge" title="Over-The-Air Firmware Update (/update)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            OTA ⚡
+          </a>
+
+          <div class="hud-status-badge">
+            <span class="status-dot" id="status-indicator"></span>
+            <span id="status-text">ESP8266 AP</span>
+          </div>
         </div>
       </div>
 
@@ -37,7 +48,7 @@
       </div>
     </header>
 
-    <!-- Main Portrait Dashboard Stack (Top to Bottom matching Reference Sketch) -->
+    <!-- Main Portrait Dashboard Stack -->
     <main class="portrait-dashboard">
 
       <!-- Section 1: Directional D-Pad Controller -->
@@ -133,8 +144,11 @@
 
     <!-- Footer Telemetry & Hotkeys -->
     <footer class="footer-bar">
-      <div class="log-msg" id="log-output">
-        HimalixLabs AP Connected (192.168.4.1)
+      <div class="footer-top-info">
+        <div class="log-msg" id="log-output">
+          HimalixLabs AP Connected (192.168.4.1)
+        </div>
+        <a href="/update" class="footer-ota-link" target="_blank">FIRMWARE OTA ⚡</a>
       </div>
       <div class="hotkeys">
         <span><span class="kbd">WASD</span> Steer</span>
