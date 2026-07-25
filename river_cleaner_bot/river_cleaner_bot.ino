@@ -298,24 +298,26 @@ void moveBackward(int speed) {
 }
 
 void turnLeft(int speed) {
-  int slowSpeed = speed * 0.3;
-  digitalWrite(PIN_IN1, HIGH);
-  digitalWrite(PIN_IN2, LOW);
+  // Responsive Tank Turn / Zero-Radius Spin Turn Left:
+  // Left Motor (A) BACKWARD, Right Motor (B) FORWARD
+  digitalWrite(PIN_IN1, LOW);
+  digitalWrite(PIN_IN2, HIGH);
   digitalWrite(PIN_IN3, HIGH);
   digitalWrite(PIN_IN4, LOW);
-  analogWrite(PIN_ENA, slowSpeed);
+  analogWrite(PIN_ENA, speed);
   analogWrite(PIN_ENB, speed);
   currentDirection = "LEFT";
 }
 
 void turnRight(int speed) {
-  int slowSpeed = speed * 0.3;
+  // Responsive Tank Turn / Zero-Radius Spin Turn Right:
+  // Left Motor (A) FORWARD, Right Motor (B) BACKWARD
   digitalWrite(PIN_IN1, HIGH);
   digitalWrite(PIN_IN2, LOW);
-  digitalWrite(PIN_IN3, HIGH);
-  digitalWrite(PIN_IN4, LOW);
+  digitalWrite(PIN_IN3, LOW);
+  digitalWrite(PIN_IN4, HIGH);
   analogWrite(PIN_ENA, speed);
-  analogWrite(PIN_ENB, slowSpeed);
+  analogWrite(PIN_ENB, speed);
   currentDirection = "RIGHT";
 }
 
@@ -356,16 +358,19 @@ void handleMove() {
 void handleCleaner() {
   if (server.hasArg("state")) {
     String st = server.arg("state");
-    if (st == "on" || st == "1" || st == "true") {
+    st.toLowerCase();
+    st.trim();
+    if (st == "on" || st == "1" || st == "true" || st == "active") {
       setCleanerState(true);
-    } else {
+    } else if (st == "off" || st == "0" || st == "false") {
       setCleanerState(false);
+    } else {
+      setCleanerState(!cleanerState);
     }
-    server.send(200, "text/plain", cleanerState ? "ON" : "OFF");
   } else {
     setCleanerState(!cleanerState);
-    server.send(200, "text/plain", cleanerState ? "ON" : "OFF");
   }
+  server.send(200, "text/plain", cleanerState ? "ON" : "OFF");
 }
 
 void handleStatus() {

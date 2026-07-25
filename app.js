@@ -137,11 +137,17 @@
     }
 
     fetch(url, { method: 'GET', cache: 'no-cache' })
-      .then(res => {
-        if (res.ok) {
-          setConnectedStatus(true);
-          log(`CLEANER RELAY: ${stateStr.toUpperCase()}`);
+      .then(res => res.text())
+      .then(replyText => {
+        setConnectedStatus(true);
+        const cleanReply = replyText.trim().toUpperCase();
+        if (cleanReply === 'ON') {
+          state.cleanerOn = true;
+        } else if (cleanReply === 'OFF') {
+          state.cleanerOn = false;
         }
+        updateUI();
+        log(`CLEANER RELAY: ${state.cleanerOn ? 'ON' : 'OFF'}`);
       })
       .catch(() => {
         setConnectedStatus(false);

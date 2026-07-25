@@ -82,111 +82,104 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
     :root {
       --bg-main: #f4f5f8; --bg-card: #ffffff; --bg-inset: #f8f9fa; --bg-hover: #f1f5f9;
-      --text-main: #0f172a; --text-secondary: #475569; --text-muted: #64748b; --text-light: #94a3b8;
+      --text-main: #0f172a; --text-secondary: #475569; --text-muted: #64748b;
       --border-color: #e2e8f0; --border-dark: #0f172a; --brand-black: #111111;
-      --accent-green: #10b981; --accent-green-bg: #ecfdf5; --accent-green-border: #a7f3d0; --accent-red: #ef4444;
+      --accent-green: #10b981; --accent-green-bg: #ecfdf5; --accent-green-border: #a7f3d0;
+      --accent-red: #ef4444; --accent-red-bg: #fff1f2; --accent-red-border: #fecdd3;
       --font-heading: 'Space Grotesk', sans-serif; --font-body: 'Plus Jakarta Sans', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; user-select: none; touch-action: manipulation; }
     html, body { width: 100vw; min-height: 100vh; background-color: var(--bg-main); color: var(--text-main); font-family: var(--font-body); font-size: 15px; }
-    .app-container { width: 100%; max-width: 440px; margin: 0 auto; min-height: 100vh; padding: 16px 14px; display: flex; flex-direction: column; gap: 16px; }
-    .top-header { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 12px; }
-    .header-top-row { display: flex; justify-content: space-between; align-items: center; }
-    .pill-badge { display: inline-flex; align-items: center; gap: 6px; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 20px; padding: 4px 10px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: var(--text-secondary); text-transform: uppercase; }
-    .hud-status-badge { display: inline-flex; align-items: center; gap: 6px; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 20px; padding: 4px 10px; font-size: 0.7rem; font-family: monospace; font-weight: 600; color: var(--text-secondary); }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
-    .brand-title-box h1 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--text-main); }
+    .app-viewport { width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px 14px; }
+    .full-controller-card { width: 100%; max-width: 410px; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 24px 20px; box-shadow: 0 12px 36px rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 20px; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; }
+    .brand-info h1 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--text-main); }
     .brand-sub { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
-    .portrait-dashboard { display: flex; flex-direction: column; gap: 16px; flex: 1; }
-    .panel-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 16px; }
-    .panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
-    .panel-title { display: flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-main); }
-    .step-num { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border-dark); display: flex; align-items: center; justify-content: center; font-family: monospace; font-size: 0.75rem; font-weight: 700; }
-    .panel-tag { font-family: monospace; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 6px; padding: 2px 6px; }
-    .controller-wrapper { display: flex; justify-content: center; align-items: center; padding: 10px 0; }
-    .dpad-cross { display: grid; grid-template-columns: repeat(3, 82px); grid-template-rows: repeat(3, 82px); gap: 10px; }
-    .btn-control { background-color: var(--bg-inset); border: 1.5px solid var(--border-color); border-radius: 12px; color: var(--text-main); font-family: var(--font-heading); cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; transition: all 0.15s ease; outline: none; }
-    .btn-control .arrow-icon { font-size: 1.3rem; }
-    .btn-control .key-hint { font-size: 0.6rem; font-family: monospace; color: var(--text-muted); }
+    .status-indicator-badge { display: flex; align-items: center; justify-content: center; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 50%; width: 32px; height: 32px; }
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; background-color: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+    .card-divider { width: 100%; height: 1px; background-color: var(--border-color); }
+    .controller-section { display: flex; justify-content: center; align-items: center; padding: 6px 0; }
+    .dpad-cross { display: grid; grid-template-columns: repeat(3, 86px); grid-template-rows: repeat(3, 86px); gap: 12px; }
+    .btn-control { background-color: var(--bg-inset); border: 1.5px solid var(--border-color); border-radius: 16px; color: var(--text-main); cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.15s ease; outline: none; }
+    .btn-control .svg-icon { width: 30px; height: 30px; color: var(--text-main); }
+    .btn-control .svg-icon-stop { width: 24px; height: 24px; color: var(--accent-red); }
     .btn-control:hover { background-color: var(--bg-hover); border-color: var(--border-dark); }
-    .btn-control:active, .btn-control.active { background-color: var(--brand-black); border-color: var(--brand-black); color: #fff; transform: scale(0.95); }
-    .btn-control:active .key-hint, .btn-control.active .key-hint { color: #a1a1aa; }
-    .btn-control.btn-center-stop { background-color: #fff1f2; border-color: #fecdd3; color: var(--accent-red); }
-    .btn-control.btn-center-stop:active, .btn-control.btn-center-stop.active { background-color: var(--accent-red); border-color: var(--accent-red); color: #fff; }
-    .cleaner-panel-content { display: flex; flex-direction: column; gap: 14px; align-items: center; }
-    .cleaner-status-box { width: 100%; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
-    .cleaner-status-label { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); }
-    .cleaner-status-state { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-muted); }
-    .cleaner-status-state.active { color: var(--accent-green); background-color: var(--accent-green-bg); border: 1px solid var(--accent-green-border); padding: 2px 10px; border-radius: 20px; }
-    .btn-cleaner-main { width: 100%; background-color: var(--bg-card); border: 1.5px solid var(--border-dark); border-radius: 30px; color: var(--text-main); font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; padding: 14px 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease; outline: none; }
-    .btn-cleaner-main:hover, .btn-cleaner-main.active { background-color: var(--brand-black); border-color: var(--brand-black); color: #fff; }
+    .btn-control:active, .btn-control.active { background-color: var(--brand-black); border-color: var(--brand-black); }
+    .btn-control:active .svg-icon, .btn-control.active .svg-icon { color: #ffffff; }
+    .btn-control.btn-center-stop { background-color: var(--accent-red-bg); border-color: var(--accent-red-border); }
+    .btn-control.btn-center-stop:active, .btn-control.btn-center-stop.active { background-color: var(--accent-red); border-color: var(--accent-red); }
+    .btn-control.btn-center-stop:active .svg-icon-stop, .btn-control.btn-center-stop.active .svg-icon-stop { color: #ffffff; }
+    .cleaner-section { display: flex; flex-direction: column; gap: 12px; }
+    .cleaner-status-row { display: flex; justify-content: space-between; align-items: center; }
+    .cleaner-label { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); }
+    .cleaner-state-badge { font-family: monospace; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 12px; padding: 2px 10px; }
+    .cleaner-state-badge.active { color: var(--accent-green); background-color: var(--accent-green-bg); border-color: var(--accent-green-border); }
+    .btn-cleaner-main { width: 100%; background-color: var(--brand-black); border: 1.5px solid var(--brand-black); border-radius: 30px; color: #ffffff; font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; padding: 14px 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s ease; outline: none; }
+    .btn-cleaner-main .btn-power-icon { width: 20px; height: 20px; }
+    .btn-cleaner-main.active { background-color: var(--accent-green); border-color: var(--accent-green); }
+    .speed-section { display: flex; flex-direction: column; gap: 12px; }
+    .speed-header-row { display: flex; justify-content: space-between; align-items: center; }
+    .speed-label { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); }
     .speed-readout { font-family: monospace; font-size: 1.1rem; font-weight: 700; color: var(--brand-black); }
-    .speed-slider-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .speed-slider-wrapper { display: flex; flex-direction: column; gap: 12px; }
     input[type="range"].speed-slider { -webkit-appearance: none; width: 100%; height: 10px; background: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 6px; outline: none; }
-    input[type="range"].speed-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--brand-black); border: 2px solid #fff; cursor: pointer; }
+    input[type="range"].speed-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--brand-black); border: 2px solid #ffffff; cursor: pointer; }
     .speed-presets-group { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .btn-speed-step { background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-family: monospace; font-size: 0.8rem; font-weight: 600; padding: 8px 4px; cursor: pointer; text-align: center; }
-    .btn-speed-step:hover, .btn-speed-step.active { background-color: var(--brand-black); border-color: var(--brand-black); color: #fff; }
-    .footer-bar { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; }
-    .log-msg { font-family: monospace; font-size: 0.72rem; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .hotkeys { display: flex; justify-content: space-between; font-family: monospace; font-size: 0.68rem; color: var(--text-muted); }
-    .kbd { background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 4px; padding: 1px 4px; font-weight: 600; color: var(--text-main); }
+    .btn-speed-step { background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-secondary); font-family: monospace; font-size: 0.8rem; font-weight: 700; padding: 8px 4px; cursor: pointer; text-align: center; }
+    .btn-speed-step:hover, .btn-speed-step.active { background-color: var(--brand-black); border-color: var(--brand-black); color: #ffffff; }
   </style>
 </head>
 <body>
-  <div class="app-container">
-    <header class="top-header">
-      <div class="header-top-row">
-        <div class="pill-badge">HIMALIX PLATFORM</div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <a href="/update" target="_blank" style="background:#fef3c7;border:1px solid #fde68a;border-radius:20px;padding:3px 8px;font-family:monospace;font-size:0.68rem;font-weight:700;color:#b45309;text-decoration:none;">OTA ⚡</a>
-          <div class="hud-status-badge">
-            <span class="status-dot"></span>
-            <span>ONLINE AP</span>
-          </div>
+  <div class="app-viewport">
+    <main class="full-controller-card">
+      <header class="card-header">
+        <div class="brand-info">
+          <h1>River Cleaning <span>Boat</span></h1>
+          <div class="brand-sub">by HimalixLabs</div>
         </div>
-      </div>
-      <div class="brand-title-box">
-        <h1>River Cleaning <span>Boat</span></h1>
-        <div class="brand-sub">by HimalixLabs</div>
-      </div>
-    </header>
-    <main class="portrait-dashboard">
-      <section class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title"><span class="step-num">1</span><span>CONTROLLER</span></div>
-          <span class="panel-tag">STEERING</span>
+        <div class="status-indicator-badge">
+          <span class="status-dot" id="status-indicator"></span>
         </div>
-        <div class="controller-wrapper">
-          <div class="dpad-cross">
-            <div style="visibility:hidden;"></div>
-            <button class="btn-control" data-dir="FORWARD"><span>▲</span><span class="key-hint">FWD [W]</span></button>
-            <div style="visibility:hidden;"></div>
-            <button class="btn-control" data-dir="LEFT"><span>◀</span><span class="key-hint">LEFT [A]</span></button>
-            <button class="btn-control btn-center-stop" data-dir="STOP"><span>■</span><span class="key-hint">STOP</span></button>
-            <button class="btn-control" data-dir="RIGHT"><span>▶</span><span class="key-hint">RIGHT [D]</span></button>
-            <div style="visibility:hidden;"></div>
-            <button class="btn-control" data-dir="BACKWARD"><span>▼</span><span class="key-hint">REV [S]</span></button>
-            <div style="visibility:hidden;"></div>
-          </div>
+      </header>
+      <div class="card-divider"></div>
+      <section class="controller-section">
+        <div class="dpad-cross">
+          <div style="visibility:hidden;"></div>
+          <button class="btn-control" data-dir="FORWARD">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          </button>
+          <div style="visibility:hidden;"></div>
+          <button class="btn-control" data-dir="LEFT">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="btn-control btn-center-stop" data-dir="STOP">
+            <svg class="svg-icon-stop" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2.5"/></svg>
+          </button>
+          <button class="btn-control" data-dir="RIGHT">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <div style="visibility:hidden;"></div>
+          <button class="btn-control" data-dir="BACKWARD">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </button>
+          <div style="visibility:hidden;"></div>
         </div>
       </section>
-      <section class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title"><span class="step-num">2</span><span>CLEANER ON OFF</span></div>
-          <span class="panel-tag">RELAY SWITCH</span>
+      <div class="card-divider"></div>
+      <section class="cleaner-section">
+        <div class="cleaner-status-row">
+          <span class="cleaner-label">CLEANER MOTOR</span>
+          <span class="cleaner-state-badge" id="cleaner-state-text">OFF</span>
         </div>
-        <div class="cleaner-panel-content">
-          <div class="cleaner-status-box">
-            <span class="cleaner-status-label">MOTOR RELAY STATE</span>
-            <span class="cleaner-status-state" id="cleaner-state-text">OFF</span>
-          </div>
-          <button class="btn-cleaner-main" id="cleaner-toggle-btn">CLEANER ON / OFF →</button>
-        </div>
+        <button class="btn-cleaner-main" id="cleaner-toggle-btn">
+          <svg class="btn-power-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+          CLEANER ON / OFF
+        </button>
       </section>
-      <section class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title"><span class="step-num">3</span><span>SPEED CONTROLLER</span></div>
+      <div class="card-divider"></div>
+      <section class="speed-section">
+        <div class="speed-header-row">
+          <span class="speed-label">SPEED CONTROLLER</span>
           <span class="speed-readout" id="speed-val-display">78%</span>
         </div>
         <div class="speed-slider-wrapper">
@@ -200,13 +193,6 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
         </div>
       </section>
     </main>
-    <footer class="footer-bar">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div class="log-msg" id="log-output">HimalixLabs River Cleaner AP Connected (192.168.4.1)</div>
-        <a href="/update" target="_blank" style="font-family:monospace;font-size:0.68rem;font-weight:700;color:#b45309;text-decoration:none;background:#fef3c7;border:1px solid #fde68a;border-radius:4px;padding:1px 6px;">OTA ⚡</a>
-      </div>
-      <div class="hotkeys"><span><span class="kbd">WASD</span> Steer</span><span><span class="kbd">SPACE</span> Stop</span><span><span class="kbd">C</span> Cleaner</span></div>
-    </footer>
   </div>
   <script>
     (function(){
@@ -216,15 +202,19 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
         speedSlider: document.getElementById('speed-slider'),
         cleanerBtn: document.getElementById('cleaner-toggle-btn'),
         cleanerText: document.getElementById('cleaner-state-text'),
-        log: document.getElementById('log-output'),
         controls: document.querySelectorAll('.btn-control'),
         presets: document.querySelectorAll('.btn-speed-step')
       };
       function updateUI(){
-        el.speedVal.textContent = Math.round((state.speed/255)*100) + '%';
-        el.speedSlider.value = state.speed;
-        if(state.cleanerOn){ el.cleanerBtn.classList.add('active'); el.cleanerText.classList.add('active'); el.cleanerText.textContent = 'ACTIVE (ON)'; }
-        else { el.cleanerBtn.classList.remove('active'); el.cleanerText.classList.remove('active'); el.cleanerText.textContent = 'OFF'; }
+        if(el.speedVal) el.speedVal.textContent = Math.round((state.speed/255)*100) + '%';
+        if(el.speedSlider) el.speedSlider.value = state.speed;
+        if(state.cleanerOn){
+          if(el.cleanerBtn) el.cleanerBtn.classList.add('active');
+          if(el.cleanerText){ el.cleanerText.classList.add('active'); el.cleanerText.textContent = 'ACTIVE (ON)'; }
+        } else {
+          if(el.cleanerBtn) el.cleanerBtn.classList.remove('active');
+          if(el.cleanerText){ el.cleanerText.classList.remove('active'); el.cleanerText.textContent = 'OFF'; }
+        }
         el.controls.forEach(b => b.classList.toggle('active', b.dataset.dir === state.direction));
         el.presets.forEach(b => b.classList.toggle('active', parseInt(b.dataset.speed) === state.speed));
       }
@@ -232,14 +222,16 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
         state.direction = dir || state.direction;
         if(spd !== undefined) state.speed = spd;
         updateUI();
-        fetch('/move?dir=' + state.direction + '&speed=' + state.speed).then(r=>r.text()).catch(e=>{});
-        el.log.textContent = 'COMMAND: ' + state.direction + ' @ ' + Math.round((state.speed/255)*100) + '%';
+        fetch('/move?dir=' + state.direction + '&speed=' + state.speed).catch(e=>{});
       }
       function sendCleaner(){
         state.cleanerOn = !state.cleanerOn;
         updateUI();
-        fetch('/cleaner?state=' + (state.cleanerOn ? 'on' : 'off')).then(r=>r.text()).catch(e=>{});
-        el.log.textContent = 'CLEANER RELAY: ' + (state.cleanerOn ? 'ON' : 'OFF');
+        fetch('/cleaner?state=' + (state.cleanerOn ? 'on' : 'off')).then(r=>r.text()).then(t=>{
+          if(t.trim()==='ON') state.cleanerOn=true;
+          else if(t.trim()==='OFF') state.cleanerOn=false;
+          updateUI();
+        }).catch(e=>{});
       }
       el.controls.forEach(b => {
         const handler = (e) => { e.preventDefault(); sendMove(b.dataset.dir); };
@@ -249,9 +241,9 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
       const stopHandler = () => { if(state.direction !== 'STOP') sendMove('STOP'); };
       window.addEventListener('mouseup', stopHandler);
       window.addEventListener('touchend', stopHandler);
-      el.speedSlider.addEventListener('input', (e) => sendMove(state.direction, parseInt(e.target.value)));
+      if(el.speedSlider) el.speedSlider.addEventListener('input', (e) => sendMove(state.direction, parseInt(e.target.value)));
       el.presets.forEach(b => b.addEventListener('click', () => sendMove(state.direction, parseInt(b.dataset.speed))));
-      el.cleanerBtn.addEventListener('click', sendCleaner);
+      if(el.cleanerBtn) el.cleanerBtn.addEventListener('click', sendCleaner);
       window.addEventListener('keydown', (e) => {
         if(e.repeat) return;
         if(e.code === 'KeyW' || e.code === 'ArrowUp') sendMove('FORWARD');
@@ -307,24 +299,26 @@ void moveBackward(int speed) {
 }
 
 void turnLeft(int speed) {
-  int slowSpeed = speed * 0.3;
-  digitalWrite(PIN_IN1, HIGH);
-  digitalWrite(PIN_IN2, LOW);
+  // Responsive Tank Turn / Zero-Radius Spin Turn Left:
+  // Left Motor (A) BACKWARD, Right Motor (B) FORWARD
+  digitalWrite(PIN_IN1, LOW);
+  digitalWrite(PIN_IN2, HIGH);
   digitalWrite(PIN_IN3, HIGH);
   digitalWrite(PIN_IN4, LOW);
-  analogWrite(PIN_ENA, slowSpeed);
+  analogWrite(PIN_ENA, speed);
   analogWrite(PIN_ENB, speed);
   currentDirection = "LEFT";
 }
 
 void turnRight(int speed) {
-  int slowSpeed = speed * 0.3;
+  // Responsive Tank Turn / Zero-Radius Spin Turn Right:
+  // Left Motor (A) FORWARD, Right Motor (B) BACKWARD
   digitalWrite(PIN_IN1, HIGH);
   digitalWrite(PIN_IN2, LOW);
-  digitalWrite(PIN_IN3, HIGH);
-  digitalWrite(PIN_IN4, LOW);
+  digitalWrite(PIN_IN3, LOW);
+  digitalWrite(PIN_IN4, HIGH);
   analogWrite(PIN_ENA, speed);
-  analogWrite(PIN_ENB, slowSpeed);
+  analogWrite(PIN_ENB, speed);
   currentDirection = "RIGHT";
 }
 
@@ -368,16 +362,19 @@ void handleMove() {
 void handleCleaner() {
   if (server.hasArg("state")) {
     String st = server.arg("state");
-    if (st == "on" || st == "1" || st == "true") {
+    st.toLowerCase();
+    st.trim();
+    if (st == "on" || st == "1" || st == "true" || st == "active") {
       setCleanerState(true);
-    } else {
+    } else if (st == "off" || st == "0" || st == "false") {
       setCleanerState(false);
+    } else {
+      setCleanerState(!cleanerState);
     }
-    server.send(200, "text/plain", cleanerState ? "ON" : "OFF");
   } else {
     setCleanerState(!cleanerState);
-    server.send(200, "text/plain", cleanerState ? "ON" : "OFF");
   }
+  server.send(200, "text/plain", cleanerState ? "ON" : "OFF");
 }
 
 void handleStatus() {

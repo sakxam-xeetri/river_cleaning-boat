@@ -10,121 +10,89 @@
 
 <body>
 
-  <div class="app-container">
+  <div class="app-viewport">
 
-    <!-- Top Header: River Cleaning Boat by HimalixLabs -->
-    <header class="top-header">
-      <div class="header-top-row">
-        <div class="pill-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7"></rect>
-            <rect x="14" y="3" width="7" height="7"></rect>
-            <rect x="14" y="14" width="7" height="7"></rect>
-            <rect x="3" y="14" width="7" height="7"></rect>
-          </svg>
-          HIMALIX PLATFORM
+    <!-- Single Full-Size Card Controller Layout -->
+    <main class="full-controller-card">
+
+      <!-- Card Top Header -->
+      <header class="card-header">
+        <div class="brand-info">
+          <h1>River Cleaning <span>Boat</span></h1>
+          <div class="brand-sub">by HimalixLabs</div>
         </div>
 
-        <div class="header-badges-right">
-          <a href="/update" target="_blank" class="ota-badge" title="Over-The-Air Firmware Update (/update)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
+        <div class="status-indicator-badge" title="Connection Status">
+          <span class="status-dot" id="status-indicator"></span>
+        </div>
+      </header>
+
+      <div class="card-divider"></div>
+
+      <!-- Section 1: Directional D-Pad Controller with Pure Premium SVG Vector Icons -->
+      <section class="controller-section">
+        <div class="dpad-cross">
+          <!-- Row 1: Top (Forward) -->
+          <div class="dpad-empty"></div>
+          <button class="btn-control" data-dir="FORWARD" title="Forward">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 19V5M5 12l7-7 7 7"/>
             </svg>
-            OTA ⚡
-          </a>
-
-          <div class="hud-status-badge">
-            <span class="status-dot" id="status-indicator"></span>
-            <span id="status-text">ESP8266 AP</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="brand-title-box">
-        <h1>River Cleaning <span>Boat</span></h1>
-        <div class="brand-sub">by HimalixLabs</div>
-      </div>
-    </header>
-
-    <!-- Main Portrait Dashboard Stack -->
-    <main class="portrait-dashboard">
-
-      <!-- Section 1: Directional D-Pad Controller -->
-      <section class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span class="step-num">1</span>
-            <span>CONTROLLER</span>
-          </div>
-          <span class="panel-tag">STEERING</span>
-        </div>
-
-        <div class="controller-wrapper">
-          <div class="dpad-cross">
-            <!-- Row 1: Top (Forward) -->
-            <div class="dpad-empty"></div>
-            <button class="btn-control" data-dir="FORWARD" title="Forward (W / Up)">
-              <span class="arrow-icon">▲</span>
-              <span class="key-hint">FWD [W]</span>
-            </button>
-            <div class="dpad-empty"></div>
-
-            <!-- Row 2: Left, Center Stop, Right -->
-            <button class="btn-control" data-dir="LEFT" title="Left (A / Left)">
-              <span class="arrow-icon">◀</span>
-              <span class="key-hint">LEFT [A]</span>
-            </button>
-            <button class="btn-control btn-center-stop" data-dir="STOP" title="Stop (Space)">
-              <span class="arrow-icon">■</span>
-              <span class="key-hint">STOP</span>
-            </button>
-            <button class="btn-control" data-dir="RIGHT" title="Right (D / Right)">
-              <span class="arrow-icon">▶</span>
-              <span class="key-hint">RIGHT [D]</span>
-            </button>
-
-            <!-- Row 3: Bottom (Backward) -->
-            <div class="dpad-empty"></div>
-            <button class="btn-control" data-dir="BACKWARD" title="Backward (S / Down)">
-              <span class="arrow-icon">▼</span>
-              <span class="key-hint">REV [S]</span>
-            </button>
-            <div class="dpad-empty"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 2: Cleaner ON / OFF -->
-      <section class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span class="step-num">2</span>
-            <span>CLEANER ON OFF</span>
-          </div>
-          <span class="panel-tag">RELAY SWITCH</span>
-        </div>
-
-        <div class="cleaner-panel-content">
-          <div class="cleaner-status-box">
-            <span class="cleaner-status-label">MOTOR RELAY STATE</span>
-            <span class="cleaner-status-state" id="cleaner-state-text">OFF</span>
-          </div>
-
-          <button class="btn-cleaner-main" id="cleaner-toggle-btn">
-            CLEANER ON / OFF <span class="btn-arrow">→</span>
           </button>
+          <div class="dpad-empty"></div>
+
+          <!-- Row 2: Left, Center Stop, Right -->
+          <button class="btn-control" data-dir="LEFT" title="Left">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <button class="btn-control btn-center-stop" data-dir="STOP" title="Stop">
+            <svg class="svg-icon-stop" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="6" y="6" width="12" height="12" rx="2.5"/>
+            </svg>
+          </button>
+          <button class="btn-control" data-dir="RIGHT" title="Right">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+
+          <!-- Row 3: Bottom (Backward) -->
+          <div class="dpad-empty"></div>
+          <button class="btn-control" data-dir="BACKWARD" title="Backward">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+          </button>
+          <div class="dpad-empty"></div>
         </div>
       </section>
 
-      <!-- Section 3: Speed Controller -->
-      <section class="panel-card speed-card">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span class="step-num">3</span>
-            <span>SPEED CONTROLLER</span>
-          </div>
+      <div class="card-divider"></div>
+
+      <!-- Section 2: Cleaner Motor Toggle Button & Status -->
+      <section class="cleaner-section">
+        <div class="cleaner-status-row">
+          <span class="cleaner-label">CLEANER MOTOR</span>
+          <span class="cleaner-state-badge" id="cleaner-state-text">OFF</span>
+        </div>
+
+        <button class="btn-cleaner-main" id="cleaner-toggle-btn">
+          <svg class="btn-power-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+            <line x1="12" y1="2" x2="12" y2="12"></line>
+          </svg>
+          CLEANER ON / OFF
+        </button>
+      </section>
+
+      <div class="card-divider"></div>
+
+      <!-- Section 3: Speed Controller & Presets -->
+      <section class="speed-section">
+        <div class="speed-header-row">
+          <span class="speed-label">SPEED CONTROLLER</span>
           <span class="speed-readout" id="speed-val-display">78%</span>
         </div>
 
@@ -141,21 +109,6 @@
       </section>
 
     </main>
-
-    <!-- Footer Telemetry & Hotkeys -->
-    <footer class="footer-bar">
-      <div class="footer-top-info">
-        <div class="log-msg" id="log-output">
-          HimalixLabs AP Connected (192.168.4.1)
-        </div>
-        <a href="/update" class="footer-ota-link" target="_blank">FIRMWARE OTA ⚡</a>
-      </div>
-      <div class="hotkeys">
-        <span><span class="kbd">WASD</span> Steer</span>
-        <span><span class="kbd">SPACE</span> Stop</span>
-        <span><span class="kbd">C</span> Cleaner</span>
-      </div>
-    </footer>
 
   </div>
 
