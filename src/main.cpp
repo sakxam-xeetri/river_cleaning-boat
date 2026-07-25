@@ -93,8 +93,10 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
     .app-viewport { width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px 14px; }
     .full-controller-card { width: 100%; max-width: 410px; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 24px 20px; box-shadow: 0 12px 36px rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 20px; }
     .card-header { display: flex; justify-content: space-between; align-items: center; }
+    .card-header-actions { display: flex; align-items: center; gap: 10px; }
     .brand-info h1 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--text-main); }
     .brand-sub { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+    .ota-btn { display: inline-flex; align-items: center; gap: 4px; background-color: #fef3c7; border: 1px solid #fde68a; border-radius: 20px; padding: 4px 10px; font-family: monospace; font-size: 0.72rem; font-weight: 700; color: #b45309; text-decoration: none; }
     .status-indicator-badge { display: flex; align-items: center; justify-content: center; background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 50%; width: 32px; height: 32px; }
     .status-dot { width: 10px; height: 10px; border-radius: 50%; background-color: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
     .card-divider { width: 100%; height: 1px; background-color: var(--border-color); }
@@ -127,6 +129,8 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
     .speed-presets-group { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .btn-speed-step { background-color: var(--bg-inset); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-secondary); font-family: monospace; font-size: 0.8rem; font-weight: 700; padding: 8px 4px; cursor: pointer; text-align: center; }
     .btn-speed-step:hover, .btn-speed-step.active { background-color: var(--brand-black); border-color: var(--brand-black); color: #ffffff; }
+    .card-footer-ota { display: flex; justify-content: center; align-items: center; }
+    .ota-footer-link { display: inline-flex; align-items: center; gap: 6px; background-color: #fef3c7; border: 1px solid #fde68a; border-radius: 20px; padding: 6px 14px; font-family: monospace; font-size: 0.72rem; font-weight: 700; color: #b45309; text-decoration: none; }
   </style>
 </head>
 <body>
@@ -137,8 +141,14 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
           <h1>River Cleaning <span>Boat</span></h1>
           <div class="brand-sub">by HimalixLabs</div>
         </div>
-        <div class="status-indicator-badge">
-          <span class="status-dot" id="status-indicator"></span>
+        <div class="card-header-actions">
+          <a href="/update" target="_blank" class="ota-btn" title="Over-The-Air Firmware Update (/update)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <span>OTA</span>
+          </a>
+          <div class="status-indicator-badge">
+            <span class="status-dot" id="status-indicator"></span>
+          </div>
         </div>
       </header>
       <div class="card-divider"></div>
@@ -192,6 +202,13 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
           </div>
         </div>
       </section>
+      <div class="card-divider"></div>
+      <footer class="card-footer-ota">
+        <a href="/update" target="_blank" class="ota-footer-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          FIRMWARE OTA UPDATE ⚡
+        </a>
+      </footer>
     </main>
   </div>
   <script>
