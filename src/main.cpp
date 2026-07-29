@@ -342,7 +342,10 @@ void turnRight(int speed) {
 
 void setCleanerState(bool turnOn) {
   cleanerState = turnOn;
-  digitalWrite(PIN_RELAY, turnOn ? RELAY_ACTIVE_STATE : RELAY_OFF_STATE);
+  // Inverted logic per requirement:
+  // Initial state / App OFF -> Physical Relay ON (RELAY_ACTIVE_STATE)
+  // App ON (user pressed turn on) -> Physical Relay OFF (RELAY_OFF_STATE)
+  digitalWrite(PIN_RELAY, turnOn ? RELAY_OFF_STATE : RELAY_ACTIVE_STATE);
 }
 
 // ----------------------------------------------------------------------------------
@@ -421,7 +424,7 @@ void setupOTA() {
 
   ArduinoOTA.onStart([]() {
     stopMotors();
-    setCleanerState(false);
+    digitalWrite(PIN_RELAY, RELAY_OFF_STATE);
     Serial.println("[OTA] Wireless firmware update started. Motors stopped.");
   });
 
